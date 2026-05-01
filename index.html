@@ -1,0 +1,677 @@
+Here is an HTML/CSS/JavaScript document that creates a complete "Transport Link" website with a live tracking feature, based on your provided designs and the Lovable project reference.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Transport Link | Vaal Moves Easy</title>
+    <!-- Google Fonts & simple reset -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefcf5;
+            color: #1a2c1e;
+            scroll-behavior: smooth;
+        }
+
+        /* container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* buttons & badges */
+        .btn-primary {
+            background: #1e3a2f;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .btn-primary:hover {
+            background: #0f2c22;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #1e3a2f;
+            color: #1e3a2f;
+            padding: 10px 26px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-outline:hover {
+            background: #1e3a2f10;
+        }
+
+        /* navigation */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #1e3a2f, #2b6e4e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo span {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #5b6e4a;
+        }
+
+        /* hero */
+        .hero {
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+        .badge {
+            background: #e9f3e6;
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1e562e;
+            margin-bottom: 24px;
+        }
+        .hero h2 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #3a4a3a;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* stats row */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin: 48px 0;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .stat-item {
+            background: white;
+            padding: 20px 28px;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            min-width: 140px;
+            border: 1px solid #e6e0cf;
+        }
+        .stat-number {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #1e3a2f;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5b6e4a;
+        }
+
+        /* vehicle cards */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 48px 0 24px;
+            text-align: center;
+        }
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin: 32px 0;
+        }
+        .vehicle-card {
+            background: white;
+            padding: 28px 24px;
+            border-radius: 32px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+            border: 1px solid #ebe5d6;
+            transition: all 0.2s;
+        }
+        .vehicle-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .vehicle-card p {
+            color: #4a5b3c;
+            line-height: 1.4;
+        }
+
+        /* steps */
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            justify-content: center;
+            margin: 48px 0 40px;
+        }
+        .step {
+            flex: 1;
+            min-width: 220px;
+            background: #ffffffd9;
+            backdrop-filter: blur(2px);
+            padding: 28px 20px;
+            border-radius: 32px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            border: 1px solid #e9e2d2;
+        }
+        .step-num {
+            background: #1e3a2f;
+            color: white;
+            width: 44px;
+            height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        .step h4 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        /* TRACKING SECTION */
+        .tracking-section {
+            background: #eef3e8;
+            border-radius: 48px;
+            padding: 48px 32px;
+            margin: 60px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .tracking-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .tracking-info {
+            flex: 1.2;
+        }
+        .tracking-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .tracking-demo {
+            flex: 1;
+            background: white;
+            padding: 24px;
+            border-radius: 36px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        .track-status {
+            background: #f1f4ec;
+            padding: 12px 20px;
+            border-radius: 60px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .status-badge {
+            background: #1e3a2f;
+            color: white;
+            border-radius: 60px;
+            padding: 6px 16px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .track-btn {
+            background: #1e3a2f;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .progress-container {
+            margin: 20px 0;
+        }
+        .progress-bar-bg {
+            background: #ddd8c8;
+            border-radius: 50px;
+            height: 8px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: #2b6e4e;
+            width: 0%;
+            height: 100%;
+            transition: width 0.4s ease;
+        }
+        .driver-details {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2dbc9;
+            padding-top: 16px;
+        }
+
+        /* waitlist form (light version) */
+        .waitlist-card {
+            background: white;
+            border-radius: 40px;
+            padding: 40px 32px;
+            margin: 40px 0;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.05);
+            border: 1px solid #e6dfce;
+        }
+        .form-toggle {
+            display: flex;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        .toggle-btn {
+            background: #f0ede5;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+        }
+        .toggle-btn.active {
+            background: #1e3a2f;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 60px;
+            border: 1px solid #cfcbbc;
+            font-family: inherit;
+            background: #fffef8;
+        }
+        .join-btn {
+            width: 100%;
+            background: #1e3a2f;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 60px;
+            font-weight: 700;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 0 30px;
+            border-top: 1px solid #e4ddcd;
+            margin-top: 40px;
+            color: #5b6e4a;
+        }
+        @media (max-width: 680px) {
+            .hero h2 { font-size: 2.2rem; }
+            .tracking-flex { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Navigation -->
+    <div class="navbar">
+        <div class="logo">
+            <h1>Transport Link</h1>
+            <span>Built for the Vaal</span>
+        </div>
+        <div>
+            <button class="btn-outline" id="scrollToJoin">Join waitlist</button>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="badge">🚛 Launching soon • Vaal Triangle</div>
+        <h2>Moving made friendly,<br>the Vaal way.</h2>
+        <p>Bakkies, trucks and helping hands when you need them. Whether it's a new home, a business delivery, or a once-off load – Transport Link gets it there.</p>
+        <div class="hero-buttons">
+            <button class="btn-primary" id="heroJoinBtn">Join the waitlist</button>
+            <button class="btn-outline" id="seeHowBtn">See how it works</button>
+        </div>
+    </div>
+
+    <!-- stats row -->
+    <div class="stats">
+        <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label">VAAL LOCAL</div></div>
+        <div class="stat-item"><div class="stat-number">3</div><div class="stat-label">VEHICLE SIZES</div></div>
+        <div class="stat-item"><div class="stat-number">+</div><div class="stat-label">HELPERS ON REQUEST</div></div>
+    </div>
+
+    <!-- Vehicle options -->
+    <div class="section-title">One app. Every kind of move.</div>
+    <div class="cards-grid">
+        <div class="vehicle-card"><h3>Bakkie (1-ton)</h3><p>Perfect for single-room moves, small deliveries and once-off loads.</p></div>
+        <div class="vehicle-card"><h3>Truck (1.5–4 ton)</h3><p>Apartment moves, business deliveries and medium logistics jobs.</p></div>
+        <div class="vehicle-card"><h3>Large truck (8 ton+)</h3><p>Full house moves and bulk business cargo across the Vaal.</p></div>
+    </div>
+    <div style="text-align:center; margin-top:-10px;"><span style="background:#e9f3e6; padding:6px 18px; border-radius:50px;">➕ Helpers & loaders — add 1–2 extra hands</span></div>
+
+    <!-- How it works: 3 steps -->
+    <div class="section-title">Three steps. Zero stress.</div>
+    <div class="steps-container" id="stepsSection">
+        <div class="step"><div class="step-num">1</div><h4>Tell us your move</h4><p>Pickup, drop-off, date and what you're moving.</p></div>
+        <div class="step"><div class="step-num">2</div><h4>Get matched</h4><p>We connect you with a trusted Vaal driver and the right vehicle.</p></div>
+        <div class="step"><div class="step-num">3</div><h4>Move with ease</h4><p>Track your driver, pay simply, and settle into your new place.</p></div>
+    </div>
+
+    <!-- 🚀 LIVE TRACKING FEATURE (realistic simulation) -->
+    <div class="tracking-section" id="trackingDemo">
+        <div class="tracking-flex">
+            <div class="tracking-info">
+                <h3>📍 Live tracking</h3>
+                <p>Real-time driver location & status — just like the full app experience. Watch your move progress from pickup to drop-off.</p>
+                <div class="track-status" style="background:#e2e7da;">
+                    <span>🚚 Current move demo</span>
+                    <span class="status-badge" id="liveStatusBadge">Waiting for start</span>
+                </div>
+                <button class="track-btn" id="simulateMoveBtn">▶ Simulate a move (tracking demo)</button>
+                <button class="track-btn" id="resetTrackingBtn" style="background:#6c757d; margin-left: 10px;">⟳ Reset</button>
+            </div>
+            <div class="tracking-demo">
+                <div style="display: flex; justify-content: space-between; font-weight:600;"><span>🏠 Pickup: Vanderbijlpark</span><span>📍 Dropoff: Vereeniging CBD</span></div>
+                <div class="progress-container"><div class="progress-bar-bg"><div class="progress-fill" id="trackFill" style="width:0%"></div></div></div>
+                <div id="trackMessage" style="font-size:0.9rem; margin:12px 0; background:#f5f2ea; padding:8px 12px; border-radius:60px;">⚡ No active move. Press "Simulate a move"</div>
+                <div class="driver-details" id="driverDetailsBox">
+                    <span>👤 Driver: Thabo M. (Bakkie)</span><br>
+                    <span>📞 Vaal local • Rating 4.98</span>
+                </div>
+                <!-- additional helper info -->
+                <div style="font-size:0.75rem; margin-top:12px; color:#7b6e52;">Helpers available on request • 24/7 support</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join waitlist card (dual role: customer / driver) -->
+    <div class="waitlist-card" id="waitlistForm">
+        <h3 style="font-size: 1.8rem;">🚀 Get early access</h3>
+        <p style="margin-bottom: 16px;">Be first when we launch in the Vaal. Free to join, no commitment.</p>
+        <div class="form-toggle" id="roleToggleGroup">
+            <button class="toggle-btn active" data-role="customer">📦 I need a move</button>
+            <button class="toggle-btn" data-role="driver">🚛 I'm a driver</button>
+        </div>
+        
+        <!-- Dynamic form fields -->
+        <form id="joinForm">
+            <div class="form-group"><input type="text" id="fullName" placeholder="Full name" value="Musawenkosi S."></div>
+            <div class="form-group"><input type="tel" id="phone" placeholder="Phone" value="082 000 0000"></div>
+            <div class="form-group"><input type="email" id="email" placeholder="Email" value="you@example.com"></div>
+            
+            <div id="dynamicDriverFields" style="display: none;">
+                <div class="form-group"><input type="text" id="vehicleType" placeholder="Vehicle you drive (Bakkie, 4-ton truck, 8-ton truck...)"></div>
+            </div>
+            <div id="dynamicCustomerFields">
+                <div class="form-group"><input type="text" id="vaalSuburb" placeholder="Vaal suburb (e.g. Three Rivers, Vereeniging)"></div>
+            </div>
+            <p style="font-size: 0.75rem; margin: 12px 0; color: #5b6e4a;">By joining you agree to be contacted about Transport Link's launch in the Vaal.</p>
+            <button type="submit" class="join-btn">Join the waitlist →</button>
+        </form>
+        <div id="formFeedback" style="margin-top: 16px; font-weight:500;"></div>
+    </div>
+
+    <footer>
+        <p>© 2026 Transport Link · Proudly Vaal · Built by Musawenkosi Sibeko</p>
+        <p style="margin-top: 8px;">📍 Vaal Triangle — Moving made local & friendly</p>
+    </footer>
+</div>
+
+<script>
+    // ---------- TRACKING SIMULATION (advanced but simple to use) ----------
+    let trackingInterval = null;
+    let currentProgress = 0;
+    let isTracking = false;
+
+    const trackFill = document.getElementById('trackFill');
+    const trackMessageDiv = document.getElementById('trackMessage');
+    const liveStatusBadge = document.getElementById('liveStatusBadge');
+    const simulateBtn = document.getElementById('simulateMoveBtn');
+    const resetBtn = document.getElementById('resetTrackingBtn');
+
+    function stopTracking() {
+        if (trackingInterval) {
+            clearInterval(trackingInterval);
+            trackingInterval = null;
+        }
+        isTracking = false;
+    }
+
+    function resetTrackingUI() {
+        stopTracking();
+        currentProgress = 0;
+        trackFill.style.width = '0%';
+        trackMessageDiv.innerHTML = '⚡ No active move. Press "Simulate a move"';
+        liveStatusBadge.innerText = 'Waiting for start';
+        liveStatusBadge.style.background = '#6c757d';
+        isTracking = false;
+    }
+
+    function startSimulatedMove() {
+        // reset any existing simulation
+        resetTrackingUI();
+        // start fresh
+        currentProgress = 0;
+        trackFill.style.width = '0%';
+        isTracking = true;
+        liveStatusBadge.innerText = '🚚 Driver en route';
+        liveStatusBadge.style.background = '#1e3a2f';
+        trackMessageDiv.innerHTML = '✅ Driver assigned: Thabo M. is heading to pickup location. ETA ~8 min · Tracking live.';
+        
+        trackingInterval = setInterval(() => {
+            if (!isTracking) return;
+            if (currentProgress < 100) {
+                // increment realistically: +2% each step, finish around 5 seconds full
+                currentProgress += 2;
+                if (currentProgress > 100) currentProgress = 100;
+                trackFill.style.width = currentProgress + '%';
+                
+                // update dynamic status message based on progress
+                if (currentProgress < 20) {
+                    trackMessageDiv.innerHTML = '🚙 Driving to pickup point · Vanderbijlpark South';
+                    liveStatusBadge.innerText = '🟡 Approaching pickup';
+                } else if (currentProgress < 45) {
+                    trackMessageDiv.innerHTML = '📍 Arrived at pickup · Loading items (helpers available)';
+                    liveStatusBadge.innerText = '🟢 Loading in progress';
+                } else if (currentProgress < 75) {
+                    trackMessageDiv.innerHTML = '🚛 On the way to dropoff · Vereeniging, passing Barrage Road';
+                    liveStatusBadge.innerText = '🚛 Moving...';
+                } else if (currentProgress < 98) {
+                    trackMessageDiv.innerHTML = '⏱️ Almost there · Unpacking team ready, ETA 3 min';
+                    liveStatusBadge.innerText = '🔜 Near dropoff';
+                } else if (currentProgress >= 100) {
+                    trackMessageDiv.innerHTML = '✅ Move completed! Your items delivered safely. Rate your driver.';
+                    liveStatusBadge.innerText = '✔️ Delivered';
+                    liveStatusBadge.style.background = '#2b6e4e';
+                    stopTracking();
+                    isTracking = false;
+                }
+            } else {
+                // final completed
+                if (currentProgress >= 100) {
+                    stopTracking();
+                    isTracking = false;
+                }
+            }
+        }, 130); // smooth update ~ 6.5 sec from 0 to 100
+    }
+
+    simulateBtn.addEventListener('click', () => {
+        if (trackingInterval) {
+            // if tracking is active, ask if reset? but we will reset and start fresh
+            if (confirm('A move is already in progress. Reset and start a new simulation?')) {
+                resetTrackingUI();
+                startSimulatedMove();
+            }
+        } else {
+            startSimulatedMove();
+        }
+    });
+    
+    resetBtn.addEventListener('click', () => {
+        if (trackingInterval) {
+            stopTracking();
+        }
+        resetTrackingUI();
+        trackMessageDiv.innerHTML = '⚡ Tracking reset. Press "Simulate a move" to try live demo.';
+        liveStatusBadge.innerText = 'Idle';
+        liveStatusBadge.style.background = '#6c757d';
+        currentProgress = 0;
+        trackFill.style.width = '0%';
+        isTracking = false;
+    });
+
+    // ---------- Role toggle (Customer / Driver) + waitlist handling ----------
+    const customerBtn = document.querySelector('[data-role="customer"]');
+    const driverBtn = document.querySelector('[data-role="driver"]');
+    const dynamicDriverFields = document.getElementById('dynamicDriverFields');
+    const dynamicCustomerFields = document.getElementById('dynamicCustomerFields');
+    const joinForm = document.getElementById('joinForm');
+    const formFeedback = document.getElementById('formFeedback');
+
+    function setActiveRole(role) {
+        if (role === 'driver') {
+            customerBtn.classList.remove('active');
+            driverBtn.classList.add('active');
+            dynamicDriverFields.style.display = 'block';
+            dynamicCustomerFields.style.display = 'none';
+        } else {
+            customerBtn.classList.add('active');
+            driverBtn.classList.remove('active');
+            dynamicDriverFields.style.display = 'none';
+            dynamicCustomerFields.style.display = 'block';
+        }
+    }
+
+    customerBtn.addEventListener('click', () => setActiveRole('customer'));
+    driverBtn.addEventListener('click', () => setActiveRole('driver'));
+
+    joinForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const fullName = document.getElementById('fullName').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const isDriver = driverBtn.classList.contains('active');
+        let vehicle = '';
+        let vaalSuburb = '';
+
+        if (isDriver) {
+            vehicle = document.getElementById('vehicleType').value.trim() || 'Not specified';
+        } else {
+            vaalSuburb = document.getElementById('vaalSuburb').value.trim() || 'Vaal area';
+        }
+
+        if (!fullName || !phone || !email) {
+            formFeedback.innerHTML = '❌ Please fill in name, phone and email.';
+            formFeedback.style.color = '#b13e3e';
+            return;
+        }
+        if (!email.includes('@')) {
+            formFeedback.innerHTML = '❌ Enter a valid email address.';
+            return;
+        }
+
+        // simulate successful join with local flavor
+        if (isDriver) {
+            formFeedback.innerHTML = `✅ Thanks ${fullName}! You're now on the driver waitlist. Vehicle: ${vehicle}. We'll notify you as soon as we launch in the Vaal. 🚛`;
+        } else {
+            formFeedback.innerHTML = `✅ Thanks ${fullName}! You're on the customer waitlist (${vaalSuburb}). Be first to book moves in the Vaal triangle. 🎉`;
+        }
+        formFeedback.style.color = '#1e562e';
+        // optionally reset but keep data
+        setTimeout(() => {
+            if (formFeedback.innerHTML.includes('Thanks')) {
+                // keep visible for 5 sec but we don't clear after too fast
+            }
+        }, 100);
+        // you can also reset form fields optionally, but keep as is for demo
+        console.log('Waitlist join', { fullName, phone, email, isDriver, vehicle, vaalSuburb });
+    });
+
+    // scroll helpers
+    const scrollToJoin = document.getElementById('scrollToJoin');
+    const heroJoinBtn = document.getElementById('heroJoinBtn');
+    const seeHowBtn = document.getElementById('seeHowBtn');
+    
+    scrollToJoin.addEventListener('click', () => {
+        document.getElementById('waitlistForm').scrollIntoView({ behavior: 'smooth' });
+    });
+    heroJoinBtn.addEventListener('click', () => {
+        document.getElementById('waitlistForm').scrollIntoView({ behavior: 'smooth' });
+    });
+    seeHowBtn.addEventListener('click', () => {
+        document.getElementById('stepsSection').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // initially set role to customer (default)
+    setActiveRole('customer');
+    
+    // prefill some example values as per mockups
+    document.getElementById('vehicleType').value = 'Bakkie / 4-ton truck';
+    document.getElementById('vaalSuburb').value = 'Three Rivers, Vereeniging';
+    
+    // small style extra for status
+    const styleExtra = document.createElement('style');
+    styleExtra.textContent = `.toggle-btn.active { background: #1e3a2f; color: white; } .track-btn { margin-top: 5px; } `;
+    document.head.appendChild(styleExtra);
+    
+    // ensure the tracking demo also shows a small helper helper for helpers on request
+    // all integrated — completely matches the design: "One app, tracking + vehicles + steps + Vaal local"
+</script>
+</body>
+</html>
+```
